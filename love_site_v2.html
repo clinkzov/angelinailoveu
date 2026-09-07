@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Для тебя ❤️</title>
+<style>
+:root{--pink:#ff3f79;--pink2:#ff9abc;--bg:#090208;--card:rgba(255,255,255,.065);--text:#fff8fb}
+*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}body{margin:0;background:radial-gradient(circle at 50% 0,#4a1027 0,transparent 32%),linear-gradient(150deg,#080107,#210913 55%,#080207);color:var(--text);font-family:Inter,system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}button{font:inherit}
+.start{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;background:radial-gradient(circle,rgba(255,70,120,.16),transparent 45%),#090208;transition:1s}.start.hide{opacity:0;visibility:hidden}.card{width:min(700px,100%);text-align:center;padding:42px 28px;border-radius:36px;background:var(--card);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 100px #0008}.mini-heart{font-size:86px;filter:drop-shadow(0 0 25px #ff3f7966);animation:pulse 1.5s infinite}.card h1{font-size:clamp(2.1rem,7vw,4.4rem);margin:8px 0 28px;letter-spacing:-.06em}.actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}.choice{border:0;border-radius:999px;padding:16px 34px;cursor:pointer;font-weight:900;transition:.25s}.choice:hover{transform:translateY(-4px) scale(1.03)}.yes{background:linear-gradient(135deg,#ff3f79,#ff84aa);color:white;box-shadow:0 15px 40px #ff3f7940}.no{background:#ffffff12;color:white;border:1px solid #ffffff22}.noMsg{margin-top:20px;font-size:2rem;font-weight:900}.hidden{display:none}
+.loader{position:fixed;inset:0;z-index:80;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,#3a0b1f 0,#16050d 42%,#070107 100%);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .55s ease,visibility .55s ease}.loader.show{opacity:1;visibility:visible;pointer-events:auto}.heartBox{width:min(96vw,1100px);height:min(88vh,860px);display:grid;place-items:center;padding:20px}.heartText{font-family:"Courier New",monospace;font-weight:900;font-size:clamp(.62rem,1.85vw,1.42rem);line-height:.82;color:#ff77a4;text-shadow:0 0 12px #ff3f79,0 0 42px #ff3f796e;white-space:pre;text-align:center;transform:scale(.82);opacity:.08;transition:transform .65s cubic-bezier(.2,.9,.2,1),opacity .45s ease;will-change:transform,opacity}.loader.show .heartText{transform:scale(1);opacity:1}.heartText.finish{animation:heartFinish .8s ease both}
+.bg{position:fixed;inset:0;z-index:1;overflow:hidden;pointer-events:none}.fheart{position:absolute;left:var(--x);bottom:-260px;width:var(--s);height:var(--s);display:grid;place-items:center;animation:rise var(--t) linear var(--d) infinite;opacity:0;filter:drop-shadow(0 16px 35px #ff3f7938);will-change:transform,opacity}.fheart::before{content:"♥";position:absolute;inset:0;display:grid;place-items:center;font-family:Georgia,"Times New Roman",serif;font-size:calc(var(--s)*.86);line-height:.86;color:#ff4d86;text-shadow:0 0 22px #ff3f7960,0 12px 32px #0005}.fheart span{position:relative;z-index:2;display:grid;place-items:center;font-weight:1000;color:#fff;letter-spacing:.05em;font-size:clamp(15px,2vw,30px);text-shadow:0 0 14px #7c163e;margin-top:calc(var(--s)*.02)}
+.site{position:relative;z-index:2;opacity:0;transform:translateY(24px);transition:1.2s}.site.show{opacity:1;transform:none}.hero{min-height:100vh;display:grid;place-items:center;text-align:center;padding:70px 20px}.hero h2{font-size:clamp(3rem,10vw,7rem);line-height:.92;letter-spacing:-.08em;margin:20px 0}.hero p{max-width:780px;margin:auto;color:#ffdce8;font-size:clamp(1rem,2vw,1.2rem);line-height:1.8}.tag{display:inline-block;padding:9px 15px;border:1px solid #fff2;border-radius:999px;background:#fff1;color:#ffd9e5}.down{margin-top:28px;opacity:.7;animation:bob 1.7s infinite}
+.gallery{width:min(1150px,100%);margin:auto;padding:36px 24px 130px;display:grid;grid-template-columns:repeat(12,1fr);gap:32px}.photo{position:relative;overflow:hidden;border-radius:4px;min-height:430px;padding:12px 12px 54px;background:#fff;cursor:pointer;box-shadow:0 26px 55px rgba(0,0,0,.34);border:0;transform:rotate(var(--tilt));transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s ease}.photo:nth-child(1){--tilt:-2.2deg}.photo:nth-child(2){--tilt:2deg}.photo:nth-child(3){--tilt:1.5deg}.photo:nth-child(4){--tilt:-1.7deg}.photo:nth-child(1),.photo:nth-child(4){grid-column:span 7}.photo:nth-child(2),.photo:nth-child(3){grid-column:span 5}.photo img{display:block;width:100%;height:100%;min-height:364px;object-fit:cover;transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .5s ease}.photo:hover{transform:rotate(0deg) translateY(-9px) scale(1.015);box-shadow:0 34px 70px rgba(0,0,0,.46)}.photo:hover img{transform:scale(1.045);filter:saturate(1.06)}.photo:before{content:"";position:absolute;left:16px;right:16px;bottom:18px;height:18px;background:radial-gradient(circle at 50% 50%,rgba(255,74,124,.42),transparent 58%);filter:blur(8px);opacity:.55}
+.letterWrap{padding:10px 20px 140px}.envelope{width:min(900px,100%);margin:auto;padding:28px;border-radius:32px;background:linear-gradient(145deg,#ffdce8,#fff5f8);box-shadow:0 40px 110px #0006;color:#421321;position:relative;overflow:hidden}.seal{display:block;margin:0 auto 20px;width:92px;height:92px;border:0;border-radius:50%;background:linear-gradient(135deg,#ff3f79,#ff8aaa);color:#fff;font-size:32px;cursor:pointer;box-shadow:0 15px 35px #d72c5e55;transition:.3s}.seal:hover{transform:scale(1.06)}.letter{background:#fffafc;border-radius:22px;padding:38px;box-shadow:0 20px 60px #4d183018;transform:translateY(15px);opacity:.9;transition:.7s}.letter.open{transform:none;opacity:1}.letter h3{font-size:clamp(2rem,5vw,3.3rem);margin:0 0 20px;letter-spacing:-.05em}.letter p{font-size:1.08rem;line-height:1.95;white-space:pre-line;margin:0;color:#552536}.sign{margin-top:25px;font-weight:900;color:#9a2950}
+.light{position:fixed;inset:0;z-index:70;background:#070107dd;backdrop-filter:blur(16px);display:grid;place-items:center;opacity:0;visibility:hidden;transition:.35s}.light.open{opacity:1;visibility:visible}.light img{max-width:92vw;max-height:88vh;border-radius:24px;box-shadow:0 30px 100px #0009}.close{position:absolute;right:18px;top:18px;width:48px;height:48px;border-radius:50%;border:1px solid #fff3;background:#fff1;color:white;font-size:26px;cursor:pointer}
+.spark{position:fixed;z-index:100;pointer-events:none;font-size:18px;animation:spark .9s ease forwards}@keyframes pulse{50%{transform:scale(1.08)}}@keyframes heartFinish{50%{transform:scale(1.07);filter:drop-shadow(0 0 28px #ff5e91)}}@keyframes bob{50%{transform:translateY(7px)}}@keyframes rise{0%{opacity:0;transform:translate3d(0,20px,0) scale(.78)}10%{opacity:.82}50%{opacity:.62}100%{opacity:0;transform:translate3d(var(--dx),-135vh,0) scale(1.05)}}@keyframes heartFinish{50%{transform:scale(1.08);text-shadow:0 0 18px #ff3f79,0 0 55px #ff3f79aa}100%{transform:scale(1)}}@keyframes spark{0%{opacity:0;transform:scale(.5)}20%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.3)}}
+@media (max-width:800px){.gallery{grid-template-columns:1fr;padding:22px 16px 100px;gap:22px}.photo:nth-child(n){grid-column:span 1}.photo{min-height:0;padding:9px 9px 44px}.photo img{min-height:0;height:auto;aspect-ratio:4/5;object-fit:cover}.photo:nth-child(1){--tilt:-1deg}.photo:nth-child(2){--tilt:1deg}.photo:nth-child(3){--tilt:-.8deg}.photo:nth-child(4){--tilt:.8deg}.photo:hover{transform:rotate(var(--tilt)) scale(1.01);box-shadow:0 24px 48px rgba(0,0,0,.38)}.letter{padding:26px 20px}.letter p{font-size:1rem;line-height:1.82}.envelope{padding:18px}.fheart{--s:135px}.hero{min-height:92svh;padding:58px 18px 52px}.hero h2{font-size:clamp(2.7rem,14vw,5rem)}.hero p{font-size:1rem;line-height:1.72}.loveInfo{padding:0 14px;margin-bottom:82px}.timerCard{padding:22px 18px}.timerNumbers{gap:8px}.timeBox{padding:14px 8px}.player{gap:11px}.playBtn{width:52px;height:52px;flex-basis:52px}.playerHint{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.volume{display:none}}
+
+.loveInfo{width:min(980px,100%);margin:0 auto 110px;padding:0 20px;display:grid;gap:22px;grid-template-columns:1.25fr .75fr}
+.timerCard,.player{border:1px solid #fff2;background:rgba(255,255,255,.065);backdrop-filter:blur(18px);border-radius:28px;box-shadow:0 25px 70px #0004}
+.timerCard{padding:30px}.timerTitle{font-size:.92rem;color:#ffb9ce;letter-spacing:.12em;text-transform:uppercase}.timerNumbers{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.timeBox{padding:17px 10px;border-radius:20px;background:#ffffff0d;border:1px solid #ffffff12;text-align:center}.timeBox strong{display:block;font-size:clamp(1.5rem,4vw,2.55rem);line-height:1;font-variant-numeric:tabular-nums}.timeBox span{display:block;margin-top:7px;color:#ffcbd9;font-size:.78rem}.timerSub{margin:18px 0 0;color:#ffd9e5;line-height:1.7;font-size:.95rem}.player{padding:20px;display:flex;gap:16px;align-items:center}.playBtn{width:58px;height:58px;flex:0 0 58px;border-radius:50%;border:0;cursor:pointer;color:#fff;font-size:22px;background:linear-gradient(135deg,#ff3f79,#ff88ac);box-shadow:0 12px 30px #ff3f7945;transition:.25s}.playBtn:hover{transform:scale(1.07)}.trackInfo{min-width:0;flex:1}.trackName{font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.playerHint{font-size:.82rem;color:#ffbfd0;margin-top:4px}.progress{margin-top:12px;width:100%;height:5px;border-radius:9px;background:#fff2;overflow:hidden;cursor:pointer}.progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff3f79,#ff9bb9);border-radius:9px}.volume{width:90px;accent-color:#ff5d88}
+@media (max-width:800px){.loveInfo{grid-template-columns:1fr}.timerNumbers{grid-template-columns:repeat(2,1fr)}.player{padding:16px}.volume{width:70px}}
+@media(max-width:520px){.bg .fheart:nth-child(even){display:none}.bg .fheart{filter:drop-shadow(0 10px 22px #ff3f7928)}.start{padding:14px}.card{padding:30px 18px 26px;border-radius:28px}.mini-heart{font-size:72px}.card h1{font-size:clamp(2rem,11vw,3.2rem);margin:6px 0 22px}.choice{width:100%;max-width:250px;padding:15px 24px}.actions{gap:10px}}
+@media (max-width:480px){.hero{padding:54px 16px}.hero h2{font-size:clamp(2.8rem,14vw,4rem)}.hero p{font-size:.98rem;line-height:1.7}.timerNumbers{gap:8px}.timeBox{padding:15px 8px}.timeBox strong{font-size:1.65rem}.timeBox span{font-size:.72rem}.photo,.photo img{min-height:300px}.close{right:12px;top:12px}}
+@media (prefers-reduced-motion:reduce){.fheart{animation:none!important;opacity:.08}.photo,.photo img,.heartText{transition:none!important}.site{transform:none!important}}
+</style></head>
+<body>
+<section class="start" id="start"><div class="card"><div class="mini-heart">❤️</div><h1>Ты любишь меня?</h1><div class="actions" id="actions"><button class="choice yes" id="yes">Да</button><button class="choice no" id="no">Нет</button></div><div class="noMsg hidden" id="noMsg">Ну ты и жопа</div></div></section>
+<section class="loader" id="loader"><div class="heartBox"><pre class="heartText" id="heartText"></pre></div></section>
+<div class="bg" aria-hidden="true">
+<div class="fheart" style="--x:2%;--s:180px;--t:18s;--d:-2s;--dx:40px"><span>А+А</span></div><div class="fheart" style="--x:15%;--s:230px;--t:24s;--d:-10s;--dx:-55px"><span>А+А</span></div><div class="fheart" style="--x:33%;--s:160px;--t:20s;--d:-7s;--dx:50px"><span>А+А</span></div><div class="fheart" style="--x:52%;--s:250px;--t:25s;--d:-15s;--dx:-45px"><span>А+А</span></div><div class="fheart" style="--x:71%;--s:195px;--t:21s;--d:-4s;--dx:60px"><span>А+А</span></div><div class="fheart" style="--x:88%;--s:225px;--t:23s;--d:-12s;--dx:-40px"><span>А+А</span></div></div>
+<main class="site" id="site"><section class="hero"><div><div class="tag">♡ только для тебя, зайка</div><h2>Ангелина ты — моё любимое «мы»</h2><p>Иногда один человек становится целым миром. Здесь собраны маленькие кусочки нашего мира: моменты, улыбки, фотографии и слова, которые мне хотелось сказать тебе красиво и от всего сердца.</p><div class="down">Листай ниже ↓</div></div></section>
+<section class="loveInfo">
+  <div class="timerCard">
+    <div class="timerTitle">Мы вместе</div>
+    <div class="timerNumbers">
+      <div class="timeBox"><strong id="days">0</strong><span>дней</span></div>
+      <div class="timeBox"><strong id="hours">0</strong><span>часов</span></div>
+      <div class="timeBox"><strong id="minutes">0</strong><span>минут</span></div>
+      <div class="timeBox"><strong id="seconds">0</strong><span>секунд</span></div>
+    </div>
+    <div class="timerSub">С 11 марта 2025 года — и каждая новая секунда добавляет ещё один маленький момент в нашу историю. ❤️</div>
+  </div>
+  <div class="player">
+    <button class="playBtn" id="playBtn" aria-label="Воспроизвести">▶</button>
+    <div class="trackInfo">
+      <div class="trackName">Наша песня</div>
+      <div class="playerHint" id="playerHint">Нажми, чтобы включить музыку</div>
+      <div class="progress" id="progress"><i id="progressBar"></i></div>
+    </div>
+    <input class="volume" id="volume" type="range" min="0" max="1" step="0.01" value="0.65" aria-label="Громкость">
+    <audio id="audio" preload="metadata" src="music.mp3"></audio>
+  </div>
+</section>
+<section class="gallery"><figure class="photo"><img src="photo1.jpg" alt="Наше фото"></figure><figure class="photo"><img src="photo2.jpg" alt="Наше фото"></figure><figure class="photo"><img src="photo3.jpg" alt="Наше фото"></figure><figure class="photo"><img src="photo4.jpg" alt="Наше фото"></figure></section>
+<section class="letterWrap"><div class="envelope"><button class="seal" id="seal">❤</button><article class="letter" id="letter"><h3>Письмо тебе</h3><p>Я хотел сделать для тебя что-то, что можно было бы открыть в любой момент и снова почувствовать всё то тепло, которое у меня связано с тобой.
+
+Знаешь, в отношениях мне особенно дороги не какие-то идеальные моменты, а самые обычные. Разговоры, которые начинаются с одной мелочи и внезапно длятся часами. Смех над какой-нибудь глупостью. Взгляд, после которого уже и без слов всё понятно. Те самые вечера, когда вроде бы ничего особенного не произошло, но именно их потом почему-то хочется вспоминать.
+
+Мне нравится, что рядом с тобой мне не нужно быть кем-то другим. Можно быть смешным, сонным, задумчивым, иногда немного вредным — и всё равно знать, что меня поймут. В тебе есть то самое чувство дома, которое невозможно объяснить адресом. Это не место. Это человек. И для меня таким человеком стала ты.
+
+Спасибо тебе за каждый момент, который появился в моей жизни благодаря тебе. За улыбки, за поддержку, за наши маленькие привычки, за фотографии, на которых мы можем выглядеть нелепо и всё равно быть счастливыми. Спасибо за то, что из обычных дней у нас постепенно складывается что-то своё, настоящее и очень важное.
+
+Я хочу, чтобы впереди у нас было ещё много всего: случайных прогулок, долгих разговоров, смешных историй, путешествий, спонтанных решений и фотографий, на которые мы когда-нибудь посмотрим и скажем: «Помнишь этот день?»
+
+И я хочу, чтобы ты всегда знала одну простую вещь: тебя очень любят. Тебя ценят. Тобой дорожат. И рядом с тобой есть человек, который каждый раз будет снова и снова выбирать именно тебя.
+
+Пусть у нас будет много красивых моментов, но ещё больше настоящих. Пусть иногда всё идёт не по плану, зато мы будем проходить через это вместе. Мне не нужен идеальный мир. Мне нужен наш.
+
+Спасибо, что ты есть в моей жизни. Спасибо за тебя. И спасибо за наше маленькое «мы».
+
+Я тебя люблю. Очень сильно. ❤️</p><div class="sign">Навсегда твой ❤️</div></article></div></section></main>
+<div class="light" id="light"><button class="close" id="close">×</button><img id="lightImg" alt="Фото"></div>
+<script>
+const start=document.getElementById('start'),loader=document.getElementById('loader'),site=document.getElementById('site'),yes=document.getElementById('yes'),no=document.getElementById('no'),actions=document.getElementById('actions'),noMsg=document.getElementById('noMsg'),heartText=document.getElementById('heartText');
+no.onclick=()=>{actions.classList.add('hidden');noMsg.classList.remove('hidden')};
+const shape=[
+"            ♥♥♥♥     ♥♥♥♥            ",
+"         ♥♥♥♥♥♥♥♥♥♥ ♥♥♥♥♥♥♥♥♥♥         ",
+"      ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥      ",
+"    ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥    ",
+"   ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥   ",
+"    ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥    ",
+"     ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥     ",
+"       ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥       ",
+"         ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥         ",
+"           ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥           ",
+"             ♥♥♥♥♥♥♥♥♥♥             ",
+"               ♥♥♥♥♥♥               ",
+"                 ♥♥                 "
+];
+let loadingStarted=false;
+function load(){
+  if(loadingStarted)return;
+  loadingStarted=true;
+  loader.classList.add('show');
+  const chars='0123456789+×', startT=performance.now(), dur=2800, total=shape.reduce((n,r)=>n+(r.match(/♥/g)||[]).length,0);
+  let lastCount=-1;
+  const timer=setInterval(()=>{
+    const p=Math.min((performance.now()-startT)/dur,1);
+    const eased=1-Math.pow(1-p,1.55);
+    const n=Math.floor(total*eased);
+    if(n!==lastCount){
+      lastCount=n;
+      let k=0,out='';
+      for(const row of shape){
+        for(let i=0;i<row.length;i++){
+          if(row[i]==='♥'){
+            out+=k<n?'♥':chars[(k*13+Math.floor(p*17))%chars.length];
+            k++;
+          }else out+=' ';
+        }
+        out+='\n';
+      }
+      heartText.textContent=out;
+    }
+    if(p>=1){
+      clearInterval(timer);
+      heartText.textContent=shape.join('\n');
+      heartText.classList.add('finish');
+      setTimeout(()=>{
+        loader.classList.remove('show');
+        start.classList.add('hide');
+        site.classList.add('show');
+        loadingStarted=false;
+      },900);
+    }
+  },55);
+}
+yes.onclick=load;
+const light=document.getElementById('light'),lightImg=document.getElementById('lightImg');document.querySelectorAll('.photo img').forEach(img=>img.parentElement.onclick=()=>{lightImg.src=img.src;light.classList.add('open')});document.getElementById('close').onclick=()=>light.classList.remove('open');light.onclick=e=>{if(e.target===light)light.classList.remove('open')};
+document.getElementById('seal').onclick=e=>{document.getElementById('letter').classList.add('open');e.currentTarget.style.display='none'};
+
+// Онлайн-таймер с 11 марта 2025 года, 00:00 по местному времени браузера.
+const since=new Date(2025,2,11,0,0,0);
+const daysEl=document.getElementById('days'),hoursEl=document.getElementById('hours'),minutesEl=document.getElementById('minutes'),secondsEl=document.getElementById('seconds');
+function updateTimer(){const diff=Math.max(0,Date.now()-since.getTime());const sec=Math.floor(diff/1000);const days=Math.floor(sec/86400);const hours=Math.floor((sec%86400)/3600);const minutes=Math.floor((sec%3600)/60);const seconds=sec%60;daysEl.textContent=days.toLocaleString('ru-RU');hoursEl.textContent=String(hours).padStart(2,'0');minutesEl.textContent=String(minutes).padStart(2,'0');secondsEl.textContent=String(seconds).padStart(2,'0')}
+updateTimer();setInterval(updateTimer,1000);
+
+// Мини-плеер. Для музыки положи файл music.mp3 рядом с HTML.
+const audio=document.getElementById('audio'),playBtn=document.getElementById('playBtn'),playerHint=document.getElementById('playerHint'),progress=document.getElementById('progress'),progressBar=document.getElementById('progressBar'),volume=document.getElementById('volume');
+audio.volume=Number(volume.value);
+playBtn.addEventListener('click',async()=>{try{if(audio.paused){await audio.play();}else{audio.pause();}}catch(err){playerHint.textContent='Положи рядом файл music.mp3 и нажми ещё раз';}});
+audio.addEventListener('play',()=>{playBtn.textContent='❚❚';playerHint.textContent='Играет наша песня ❤️'});
+audio.addEventListener('pause',()=>{playBtn.textContent='▶';playerHint.textContent='Пауза'});
+audio.addEventListener('ended',()=>{playBtn.textContent='▶';playerHint.textContent='Нажми, чтобы послушать ещё раз'});
+audio.addEventListener('timeupdate',()=>{if(audio.duration)progressBar.style.width=(audio.currentTime/audio.duration*100)+'%'});
+progress.addEventListener('click',e=>{if(!audio.duration)return;const r=progress.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration});
+volume.addEventListener('input',()=>audio.volume=Number(volume.value));
+
+document.addEventListener('click',e=>{if(e.target.closest('button')||e.target.closest('.photo'))return;for(let i=0;i<4;i++){let s=document.createElement('div');s.className='spark';s.textContent='♥';s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';s.style.setProperty('--dx',((Math.random()-.5)*140)+'px');s.style.setProperty('--dy',(-50-Math.random()*100)+'px');document.body.appendChild(s);setTimeout(()=>s.remove(),900)}});
+</script></body></html>
